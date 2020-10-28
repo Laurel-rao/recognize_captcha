@@ -15,14 +15,6 @@ def test_captcha():
 
     model = captcha_model.captchaModel(width, height, char_num, classes)
     y_conv = model.create_model(x, keep_prob)
-    cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=y_, logits=y_conv))
-    train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
-
-    predict = tf.reshape(y_conv, [-1, char_num, classes])
-    real = tf.reshape(y_, [-1, char_num, classes])
-    correct_prediction = tf.equal(tf.argmax(predict, 2), tf.argmax(real, 2))
-    correct_prediction = tf.cast(correct_prediction, tf.float32)
-    accuracy = tf.reduce_mean(correct_prediction)
 
     saver = tf.train.Saver()
     with tf.Session() as sess:
